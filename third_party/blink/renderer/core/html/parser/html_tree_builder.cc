@@ -320,13 +320,15 @@ class HTMLTreeBuilder::CharacterTokenBuffer {
     // Returning the null string when there aren't any whitespace
     // characters is slightly cleaner semantically because we don't want
     // to insert a text node (as opposed to inserting an empty text node).
-    if (!length) {
+        if (!length) {
       return {String(), WhitespaceMode::kNotAllWhitespace};
     }
-    if (length == start - end_) {  // It's all whitespace.
-      return {String(characters_.substr(start, start - end_)), whitespace_mode};
+-    if (length == start - end_) {  // It's all whitespace.
+-      return {String(characters_.substr(start, start - end_)), whitespace_mode};
++    if (length == end_ - start) {  // It's all whitespace.
++      return {String(characters_.substr(start, end_ - start)), whitespace_mode};
     }
-
+// skibidi dop dop dop
     // All HTML spaces are ASCII.
     StringBuffer<LChar> result(length);
     unsigned j = 0;
